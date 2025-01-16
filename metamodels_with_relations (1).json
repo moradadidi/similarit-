@@ -1,0 +1,255 @@
+{
+    "metamodels": {
+        "uml_activity": {
+            "name": "UML Activity Diagram Metamodel",
+            "elements": [
+                {
+                    "name": "Activity",
+                    "attributes": [
+                        "name",
+                        "description"
+                    ],
+                    "relationships": {
+                        "contains": [
+                            "Action",
+                            "ControlFlow",
+                            "Partition"
+                        ]
+                    }
+                },
+                {
+                    "name": "Action",
+                    "attributes": [
+                        "name",
+                        "description"
+                    ],
+                    "relationships": {
+                        "flows_to": [
+                            "Action",
+                            "DecisionNode",
+                            "MergeNode"
+                        ]
+                    }
+                },
+                {
+                    "name": "ControlFlow",
+                    "attributes": [
+                        "source",
+                        "target"
+                    ],
+                    "relationships": {
+                        "connects": [
+                            "Action",
+                            "DecisionNode",
+                            "MergeNode",
+                            "ForkNode",
+                            "JoinNode",
+                            "InitialNode",
+                            "FinalNode"
+                        ]
+                    }
+                },
+                {
+                    "name": "DecisionNode",
+                    "attributes": [
+                        "condition"
+                    ],
+                    "relationships": {
+                        "flows_to": [
+                            "Action",
+                            "MergeNode"
+                        ]
+                    }
+                },
+                {
+                    "name": "MergeNode",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Action"
+                        ]
+                    }
+                },
+                {
+                    "name": "ForkNode",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Action"
+                        ]
+                    }
+                },
+                {
+                    "name": "JoinNode",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Action"
+                        ]
+                    }
+                },
+                {
+                    "name": "InitialNode",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Action"
+                        ]
+                    }
+                },
+                {
+                    "name": "FinalNode",
+                    "attributes": [],
+                    "relationships": {}
+                },
+                {
+                    "name": "Partition",
+                    "attributes": [
+                        "name"
+                    ],
+                    "relationships": {
+                        "contains": [
+                            "Activity",
+                            "Action"
+                        ]
+                    }
+                },
+                {
+                    "name": "ObjectNode",
+                    "attributes": [
+                        "name",
+                        "type"
+                    ],
+                    "relationships": {
+                        "used_by": [
+                            "Action"
+                        ]
+                    }
+                }
+            ]
+        },
+        "bpmn": {
+            "name": "BPMN Metamodel",
+            "elements": [
+                {
+                    "name": "Process",
+                    "attributes": [
+                        "name",
+                        "description"
+                    ],
+                    "relationships": {
+                        "contains": [
+                            "Task",
+                            "SequenceFlow",
+                            "Lane"
+                        ]
+                    }
+                },
+                {
+                    "name": "Task",
+                    "attributes": [
+                        "name",
+                        "description"
+                    ],
+                    "relationships": {
+                        "flows_to": [
+                            "Task",
+                            "ExclusiveGateway",
+                            "ParallelGateway"
+                        ]
+                    }
+                },
+                {
+                    "name": "SequenceFlow",
+                    "attributes": [
+                        "source",
+                        "target"
+                    ],
+                    "relationships": {
+                        "connects": [
+                            "Task",
+                            "ExclusiveGateway",
+                            "ParallelGateway",
+                            "StartEvent",
+                            "EndEvent"
+                        ]
+                    }
+                },
+                {
+                    "name": "ExclusiveGateway",
+                    "attributes": [
+                        "condition"
+                    ],
+                    "relationships": {
+                        "flows_to": [
+                            "Task",
+                            "ParallelGateway"
+                        ]
+                    }
+                },
+                {
+                    "name": "ParallelGateway",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Task"
+                        ]
+                    }
+                },
+                {
+                    "name": "StartEvent",
+                    "attributes": [],
+                    "relationships": {
+                        "flows_to": [
+                            "Task"
+                        ]
+                    }
+                },
+                {
+                    "name": "EndEvent",
+                    "attributes": [],
+                    "relationships": {}
+                },
+                {
+                    "name": "Lane",
+                    "attributes": [
+                        "name"
+                    ],
+                    "relationships": {
+                        "contains": [
+                            "Process",
+                            "Task"
+                        ]
+                    }
+                },
+                {
+                    "name": "DataObject",
+                    "attributes": [
+                        "name",
+                        "type"
+                    ],
+                    "relationships": {
+                        "used_by": [
+                            "Task"
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "mappings": {
+        "UML Activity Diagram Metamodel": {
+            "Activity": "Process",
+            "Action": "Task",
+            "ControlFlow": "SequenceFlow",
+            "DecisionNode": "ExclusiveGateway",
+            "MergeNode": "ExclusiveGateway",
+            "ForkNode": "ParallelGateway",
+            "JoinNode": "ParallelGateway",
+            "InitialNode": "StartEvent",
+            "FinalNode": "EndEvent",
+            "Partition": "Lane",
+            "ObjectNode": "DataObject"
+        }
+    }
+}

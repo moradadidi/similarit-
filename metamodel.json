@@ -1,0 +1,142 @@
+{
+    "PRINCE2": {
+        "Classes": {
+            "BusinessCase": {
+                "ID": "String",
+                "Title": "String",
+                "Description": "String"
+            },
+            "ProjectBoard": {
+                "ID": "String",
+                "Name": "String",
+                "Members": "List"
+            },
+            "ProjectPlan": {
+                "ID": "String",
+                "Name": "String",
+                "StartDate": "Date",
+                "EndDate": "Date"
+            },
+            "StagePlan": {
+                "ID": "String",
+                "Name": "String",
+                "StageObjective": "String"
+            },
+            "WorkPackage": {
+                "ID": "String",
+                "Name": "String",
+                "Tasks": "List"
+            },
+            "EndStageReport": {
+                "ID": "String",
+                "Name": "String",
+                "Summary": "String"
+            }
+        },
+        "Relations": {
+            "Defines": {
+                "source": "BusinessCase",
+                "target": "ProjectPlan",
+                "multiplicity": "1..1"
+            },
+            "Oversees": [
+                {
+                    "source": "ProjectBoard",
+                    "target": "ProjectPlan",
+                    "multiplicity": "1..1"
+                },
+                {
+                    "source": "ProjectBoard",
+                    "target": "StagePlan",
+                    "multiplicity": "1..1"
+                }
+            ],
+            "Comprises": {
+                "source": "ProjectPlan",
+                "target": "StagePlan",
+                "multiplicity": "1..*"
+            },
+            "Triggers": {
+                "source": "StagePlan",
+                "target": "WorkPackage",
+                "multiplicity": "1..*"
+            },
+            "Produces": {
+                "source": "StagePlan",
+                "target": "EndStageReport",
+                "multiplicity": "1..1"
+            }
+        }
+    },
+    "Scrum": {
+        "Classes": {
+            "ProductBacklog": {
+                "ID": "String",
+                "Name": "String",
+                "Description": "String"
+            },
+            "Sprint": {
+                "ID": "String",
+                "Name": "String",
+                "Goal": "String",
+                "StartDate": "Date",
+                "EndDate": "Date"
+            },
+            "ScrumTeam": {
+                "ID": "String",
+                "Name": "String",
+                "Members": "List"
+            },
+            "SprintBacklog": {
+                "ID": "String",
+                "Name": "String",
+                "Tasks": "List"
+            },
+            "Increment": {
+                "ID": "String",
+                "Name": "String",
+                "Description": "String",
+                "Version": "String"
+            },
+            "DailyScrum": {
+                "ID": "String",
+                "Date": "Date",
+                "Notes": "String"
+            }
+        },
+        "Relations": {
+            "Defines": {
+                "source": "ProductBacklog",
+                "target": "Sprint",
+                "multiplicity": "1..*"
+            },
+            "Comprises": {
+                "source": "Sprint",
+                "target": "SprintBacklog",
+                "multiplicity": "1..1"
+            },
+            "Produces": [
+                {
+                    "source": "Sprint",
+                    "target": "Increment",
+                    "multiplicity": "1..*"
+                },
+                {
+                    "source": "ScrumTeam",
+                    "target": "Increment",
+                    "multiplicity": "1..*"
+                }
+            ],
+            "Triggers": {
+                "source": "SprintBacklog",
+                "target": "DailyScrum",
+                "multiplicity": "1..*"
+            },
+            "Participates": {
+                "source": "ScrumTeam",
+                "target": "DailyScrum",
+                "multiplicity": "1..*"
+            }
+        }
+    }
+}
